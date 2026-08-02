@@ -136,10 +136,3 @@ failures:
   reconciliation test doesn't catch this because it only checks that the
   total balances against whatever tax figure the app reports, not which
   subtotal that tax was actually computed from.
-
-A couple of other traps worth knowing about if you're extending this suite:
-the coupon widget lives in a same-origin iframe, so locators need
-`frameLocator('#promo')`; the sticky footer overlays the bottom row of
-product cards and can eat their clicks; and the UI uses real Unicode glyphs
-(an ellipsis character in the search placeholder, U+2212 for the minus sign)
-in places you'd normally expect plain ASCII.
