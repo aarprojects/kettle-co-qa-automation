@@ -1,0 +1,63 @@
+name: Playwright Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    # Catches drift in the live demo environment even when nobody is pushing.
+    - cron: '0 6 * * *'
+  workflow_dispatch: {}
+
+jobs:
+  pr-gate:
+    name: PR gate (10 tests, chromium + mobile-chrome)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      # mobile-chrome uses the Chromium engine (Pixel 7 emulation), so this
+      # single install covers both the chromium and mobile-chrome projects.
+      - run: npx playwright install --with-deps chromium
+      - run: npx playwright test --project=chromium --project=mobile-chrome
+        env:
+          BASE_URL: ${{ vars.BASE_URL || 'https://demo-shop-pearl.vercel.app' }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: pr-gate-report
+          path: playwright-report/
+          retention-days: 7
+
+  full-regression:
+    name: Full regression (all 10 tests, all browsers)
+    needs: pr-gate
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        project: [chromium, firefox, webkit, mobile-chrome, mobile-safari]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps
+      - run: npx playwright test --project=${{ matrix.project }}
+        env:
+          BASE_URL: ${{ vars.BASE_URL || 'https://demo-shop-pearl.vercel.app' }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: report-${{ matrix.project }}
+          path: playwright-report/
+          retention-days: 14

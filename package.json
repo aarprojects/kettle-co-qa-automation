@@ -1,0 +1,23 @@
+{
+  "name": "kettle-co-qa-automation",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Playwright + TypeScript automation for Kettle & Co (demo-shop-pearl.vercel.app)",
+  "scripts": {
+    "test": "playwright test",
+    "test:ui": "playwright test --ui",
+    "test:headed": "playwright test --headed",
+    "report": "playwright show-report",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "codegen": "playwright codegen $BASE_URL"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@playwright/test": "^1.48.0",
+    "@types/node": "^20.14.0",
+    "eslint": "^10.8.0",
+    "typescript": "^5.5.4",
+    "typescript-eslint": "^8.65.0"
+  }
+}
