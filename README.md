@@ -42,23 +42,20 @@ which is my signal to go remove the marker.
 Run them with `npm test`.
 
 ## Manual coverage
+Some things I checked by hand instead of automating, since they work correctly, don't
+touch money, and don't stop anyone from reaching checkout - so there's no real
+regression risk that would justify a repeatable test:
 
-Some things I checked by hand instead of automating: category filtering,
-search, the favorites toggle, and the out-of-stock "Notify Me" flow. All of
-them work correctly, and none touch money, so there's no real regression
-risk that would justify a repeatable test.
-
-I also checked the product image zoom modal - the Zoom In/Out buttons work,
-though I did find one bug there (see Known issues) - and whether the
-catalog supports a long-press interaction. It doesn't: the page's own
-viewport tag disables native pinch-zoom across the whole site, and the
-product tiles don't have a context-menu handler.
-
-A few more things I went back and verified by hand: removing an applied
-coupon (the discount and total both revert correctly), that the modal close
-button actually closes the overlay on its own rather than just happening to
-close as a side effect of something else, and logout - turns out there's no
-logout control anywhere in the app, so there's nothing to test there.
+• Category filtering, search, the favorites toggle, and the out-of-stock "Notify Me"
+flow
+• The product image zoom modal - the Zoom In/Out buttons work, though I did find
+one bug there (see Known issues)
+• Whether the catalog supports a long-press interaction
+• Removing an applied coupon - the discount and total both revert correctly
+• The modal close button - confirmed it closes the overlay on its own rather than
+just happening to close as a side effect of something else
+• Logout - turns out there's no logout control anywhere in the app, so there's
+nothing to test there
 
 ## Framework
 
