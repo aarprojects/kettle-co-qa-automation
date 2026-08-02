@@ -46,15 +46,15 @@ Some things I checked by hand instead of automating, since they work correctly, 
 touch money, and don't stop anyone from reaching checkout - so there's no real
 regression risk that would justify a repeatable test:
 
-• Category filtering, search, the favorites toggle, and the out-of-stock "Notify Me"
+- Category filtering, search, the favorites toggle, and the out-of-stock "Notify Me"
 flow
-• The product image zoom modal - the Zoom In/Out buttons work, though I did find
+- The product image zoom modal - the Zoom In/Out buttons work, though I did find
 one bug there (see Known issues)
-• Whether the catalog supports a long-press interaction
-• Removing an applied coupon - the discount and total both revert correctly
-• The modal close button - confirmed it closes the overlay on its own rather than
+- Whether the catalog supports a long-press interaction
+- Removing an applied coupon - the discount and total both revert correctly
+- The modal close button - confirmed it closes the overlay on its own rather than
 just happening to close as a side effect of something else
-• Logout - turns out there's no logout control anywhere in the app, so there's
+- Logout - turns out there's no logout control anywhere in the app, so there's
 nothing to test there
 
 ## Framework
